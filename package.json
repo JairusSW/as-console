@@ -1,0 +1,34 @@
+{
+  "name": "as-console",
+  "version": "4.0.1",
+  "description": "Console For AssemblyScript",
+  "types": "./assembly/index.ts",
+  "ascMain": "./assembly/index.ts",
+  "main": "./imports.js",
+  "scripts": {
+    "asbuild:untouched": "asc assembly/index.ts --exportRuntime",
+    "asbuild:optimized": "asc assembly/index.ts --exportRuntime",
+    "asbuild": "npm run asbuild:untouched && npm run asbuild:optimized"
+  },
+  "dependencies": {
+    "@assemblyscript/loader": "^0.18.11",
+    "as-console": "^3.0.0",
+    "assemblyscript": "^0.18.11"
+  },
+  "keywords": [
+    "AS",
+    "AssemblyScript",
+    "Console"
+  ],
+  "author": "JairusSW",
+  "license": "MIT",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JairusSW/as-console.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JairusSW/as-console/issues"
+  },
+  "homepage": "https://github.com/JairusSW/as-console#readme"
+}
