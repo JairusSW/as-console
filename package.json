@@ -1,6 +1,6 @@
 {
   "name": "as-console",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "Console For AssemblyScript",
   "types": "./assembly/console.ts",
   "ascMain": "./assembly/console.ts",
@@ -11,8 +11,8 @@
     "asbuild": "npm run asbuild:untouched && npm run asbuild:optimized"
   },
   "dependencies": {
-    "@assemblyscript/loader": "^0.18.11",
-    "assemblyscript": "^0.18.11"
+    "@assemblyscript/loader": "^0.18.24",
+    "assemblyscript": "^0.18.24"
   },
   "keywords": [
     "AS",

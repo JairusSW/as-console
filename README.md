@@ -21,17 +21,17 @@ const fs = require('fs')
 
 const loader = require('@assemblyscript/loader')
 
-+ let wasmModule
-
 + const consoleImports = require('as-console')
 
++ const asConsole = new consoleImports()
+
 const imports = {
-    ...eval(consoleImports)
+    ...asConsole.wasmImports
 }
 
-- const wasmModule = loader.instantiateSync(wasm, imports)
-
 + const wasmModule = loader.instantiateSync(wasm, imports)
+
++ asConsole.wasmExports = wasmModule.exports
 
 module.exports = wasmModule.exports
 
