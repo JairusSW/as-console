@@ -11,11 +11,7 @@
     "asbuild": "npm run asbuild:untouched && npm run asbuild:optimized",
     "test": "node tests"
   },
-  "dependencies": {
-    "@assemblyscript/loader": "^0.18.28",
-    "as-bitray": "^2.5.0",
-    "assemblyscript": "^0.18.28"
-  },
+  "dependencies": {},
   "keywords": [
     "AS",
     "AssemblyScript",
@@ -25,13 +21,14 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JairusSW/as-console.git"
+    "url": "git+https://github.com/assemblyscript-community/console.git"
   },
   "bugs": {
-    "url": "https://github.com/JairusSW/as-console/issues"
+    "url": "https://github.com/assemblyscript-community/console/issues"
   },
-  "homepage": "https://github.com/JairusSW/as-console#readme",
+  "homepage": "https://github.com/assemblyscript-community/console#readme",
   "devDependencies": {
+    "@assemblyscript/loader": "^0.18.28",
     "assemblyscript": "^0.18.28"
   }
 }
