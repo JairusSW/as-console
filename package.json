@@ -1,9 +1,9 @@
 {
   "name": "as-console",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Console For AssemblyScript",
-  "types": "./assembly/console.ts",
-  "ascMain": "./assembly/console.ts",
+  "types": "./assembly/index.ts",
+  "ascMain": "./assembly/index.ts",
   "main": "./imports.js",
   "scripts": {
     "asbuild:untouched": "asc assembly/index.ts --exportRuntime",
