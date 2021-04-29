@@ -6,13 +6,15 @@
   "ascMain": "./assembly/console.ts",
   "main": "./imports.js",
   "scripts": {
-    "asbuild:untouched": "asc assembly/console.ts --exportRuntime",
-    "asbuild:optimized": "asc assembly/console.ts --exportRuntime",
-    "asbuild": "npm run asbuild:untouched && npm run asbuild:optimized"
+    "asbuild:untouched": "asc assembly/index.ts --exportRuntime",
+    "asbuild:optimized": "asc assembly/index.ts --exportRuntime",
+    "asbuild": "npm run asbuild:untouched && npm run asbuild:optimized",
+    "test": "node tests"
   },
   "dependencies": {
-    "@assemblyscript/loader": "^0.18.24",
-    "assemblyscript": "^0.18.24"
+    "@assemblyscript/loader": "^0.18.28",
+    "as-bitray": "^2.5.0",
+    "assemblyscript": "^0.18.28"
   },
   "keywords": [
     "AS",
@@ -28,5 +30,8 @@
   "bugs": {
     "url": "https://github.com/JairusSW/as-console/issues"
   },
-  "homepage": "https://github.com/JairusSW/as-console#readme"
+  "homepage": "https://github.com/JairusSW/as-console#readme",
+  "devDependencies": {
+    "assemblyscript": "^0.18.28"
+  }
 }

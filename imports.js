@@ -5,43 +5,8 @@ class WakeImport {
         this._exports = null
 
         this.wasmImports = {
-            console: {
-                consoleDebug: (message) => {
-
-                    console.debug(this._exports.__getString(message))
-        
-                },
-                consoleError: (message) => {
-        
-                    console.error(this._exports.__getString(message))
-        
-                },
-                consoleInfo: (message) => {
-        
-                    console.info(this._exports.__getString(message))
-        
-                },
-                consoleTime: (label) => {
-        
-                    console.time(this._exports.__getString(label))
-        
-                },
-                consoleTimeEnd: (label) => {
-        
-                    console.timeEnd(this._exports.__getString(label))
-        
-                },
-                consoleTimeLog: (label) => {
-        
-                    console.timeLog(this._exports.__getString(label))
-        
-                },
-                consoleWarn: (message) => {
-        
-                    console.warn(this._exports.__getString(message))
-        
-                },
-                consoleLog: (message) => {
+            index: {
+                   _log: (message) => {
         
                     console.log(this._exports.__getString(message))
         

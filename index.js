@@ -1,13 +1,19 @@
 const fs = require('fs')
 
-const loader = require('as-bind').AsBind
+const loader = require('@assemblyscript/loader')
 
-const bind = require('as-console/bind')
+const ConsoleImports = require('./imports')
 
-const imports = {}
+const Console = new ConsoleImports()
 
-bind(imports)
+const imports = {
+    ...Console.wasmImports
+}
 
 const wasmModule = loader.instantiateSync(fs.readFileSync(__dirname + '/build/optimized.wasm'), imports)
+
+Console.wasmExports = wasmModule.exports
+
+wasmModule.exports.test()
 
 module.exports = wasmModule.exports
