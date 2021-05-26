@@ -18,28 +18,33 @@
 
 ## Usage
 
-**Loader**
+**NodeJS**
 
 ```js
-
-const fs = require('fs')
-
+...
 const loader = require('@assemblyscript/loader')
-
-+ const consoleImports = require('as-console')
-
-+ const asConsole = new consoleImports()
-
++ const ConsoleImport = require('as-console/imports')
++ const Console = new ConsoleImport()
 const imports = {
-    ...asConsole.wasmImports
++     ...Console.wasmImports
 }
+const wasmModule = loader.instantiateSync(..., imports);
++ Console.wasmExports = wasmModule.exports
+...
+```
 
-const wasmModule = loader.instantiateSync(wasm, imports)
+**Browser**
 
-+ asConsole.wasmExports = wasmModule.exports
-
-module.exports = wasmModule.exports
-
+```js
+...
++ import { ConsoleImport } from 'as-console/imports.esm.js'
++ const Console = new ConsoleImport()
+const imports = {
++     ...Console.wasmImports
+}
+const wasmModule = loader.instantiateSync(..., imports);
++ Console.wasmExports = wasmModule.exports
+...
 ```
 
 **AssemblyScript**
@@ -54,6 +59,6 @@ console.log(1234567890)
 // -- Numbers
 console.log(new Uint8Array(5))
 // -- UintArray
-console.log(new DataView(String.UTF8.encode('Hello From AssemblyScript')))
-// -- DatView
+console.log(new Map<string, string>().set('hello', 'world'))
+// -- Map
 ```

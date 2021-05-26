@@ -1,4 +1,4 @@
-class ConsoleImport {
+export class ConsoleImport {
     
     constructor() {
         
@@ -30,5 +30,3 @@ class ConsoleImport {
 		return this._exports.table.get(fnIndex)
 	}
 }
-
-module.exports = ConsoleImport
