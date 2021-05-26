@@ -10,7 +10,7 @@ const imports = {
     ...Console.wasmImports
 }
 
-const wasmModule = loader.instantiateSync(fs.readFileSync(__dirname + '/build/optimized.wasm'), imports)
+const wasmModule = loader.instantiateSync(fs.readFileSync(__dirname + '/build/untouched.wasm'), imports)
 
 Console.wasmExports = wasmModule.exports
 

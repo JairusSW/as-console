@@ -1,3 +1,70 @@
+// @ts-ignore
+import { StringSink } from 'as-string-sink'
+
+// Pre-alloc in memory. (faster)
+const nullVal = `null`
+
+// Kati implmentation and mod
+export function stringify<T>(data: T): string {
+    let result = new StringSink()
+
+    // -- String
+    if (isString(data)) {
+        result.write(`${data}`)
+    }
+    // -- Number/NaN/Infinity
+    else if (isFloat(data) || isSigned(data) || isInteger(data)) {
+        result.write(`${data}`)
+    }
+    // -- Boolean
+    else if (isBoolean(data)) {
+        result.write(data ? `true` : `false`)
+    }
+    // Map
+    else if (data instanceof Map) {
+
+        result.write('Map(')
+
+        const keys = data.keys()
+        const values = data.values()
+        const lastKey = keys.pop()
+        const lastValue = values.pop()
+
+        result.write(`${keys.length + 1}) { `)
+
+        for (let i = 0; i < keys.length; i++) {
+            const key = keys[i]
+            const value = values[i]
+            result.write(`'${stringify(key)}' => '${stringify(value)}', `)
+        }
+
+        result.write(`'${stringify(lastKey)}' => '${stringify(lastValue)}' }`)
+    }
+    // Array/StaticArray/UintArray/IntArray/ArrayLike
+    else if (isArrayLike(data)) {
+        result.write('[')
+        // Just loop through all the chunks and stringify them.
+        const lastChunk = data[data.length - 1]
+        for (let i = 0; i < data.length - 1; i++) {
+            const chunk = data[i]
+            if (isString(chunk)) {
+                result.write(`'${stringify(chunk)}', `)
+            } else {
+                result.write(`${stringify(chunk)}, `)
+            }
+        }
+        if (isString(lastChunk)) {
+            result.write(`'${stringify(lastChunk)}']`)
+        } else {
+            result.write(`${stringify(lastChunk)}]`)
+        }
+    } else {
+        result.write(nullVal)
+    }
+    return result.toString()
+}
+// @ts-ignore: Decorator
+@external('consoleBindings', '_log')
 declare function _log(data: string): void
 
 /* So Far, supports:
@@ -5,11 +72,8 @@ declare function _log(data: string): void
 - Numbers
 - UintArrays
 - IntArrays
-- Functions
 - ArrayBuffer
 - Map
-- Set
-- DataView
 - Array
 - StaticArray
 - Infinity
@@ -18,82 +82,6 @@ Add more to the list if you think of any!
 
 export namespace console {
     export function log<T>(data: T): void {
-
-        // -- String
-        if (data instanceof String) {
-            _log(changetype<string>(data))
-        }
-        // -- Number
-        else if (isFloat(data) || isInteger(data) || isSigned(data)) {
-            _log(f64(data).toString())
-        }
-        // -- Uint(8/16/32/64)Array
-        else if (data instanceof Uint8Array || data instanceof Uint16Array || data instanceof Uint32Array || data instanceof Uint64Array || data instanceof Uint8ClampedArray) {
-            _log(`UintArray(${data.length}) [${data.toString()}]`)
-        }
-        // -- Int(8/16/32/64)Array
-        else if (data instanceof Int8Array || data instanceof Int16Array || data instanceof Int32Array || data instanceof Int64Array) {
-            _log(`IntArray(${data.length}) [${data.toString()}]`)
-        }
-        // -- StaticArray
-        else if (data instanceof StaticArray) {
-            _log(data.toString())
-        }
-        // -- Array
-        else if (data instanceof Array) {
-            _log(data.toString())
-        }
-        // -- ArrayBuffer
-        else if (data instanceof ArrayBuffer) {
-            let array = Uint8Array.wrap(data)
-            let hex = ''
-            for (let i = 0; i < data.byteLength; i++) {
-                if (i === data.byteLength - 1) {
-                    hex += array[i].toString(16)
-                } else {
-                    hex += `${array[i].toString(16)} `
-                }
-            }
-            _log(`ArrayBuffer {\n  [Uint8Contents]: <${hex}>,\n  byteLength: ${data.byteLength}\n}`)
-        }
-        // -- Map
-        else if (data instanceof Map) {
-            _log('[object Map]')
-        }
-        // -- Set
-        else if (data instanceof Set) {
-            _log('[object Set]')
-        }
-        // -- Functions
-        else if (typeof data === 'function') {
-            _log('[Function: ' + 'Unknown' + ']')
-            // Function.name not working... _log('[Function: ' + data.name + ']')
-        }
-        // -- DataView
-        else if (data instanceof DataView) {
-            let array = Uint8Array.wrap(data.buffer)
-            let hex = ''
-            for (let i = 0; i < data.byteLength; i++) {
-                if (i === data.byteLength - 1) {
-                    hex += array[i].toString(16)
-                } else {
-                    hex += `${array[i].toString(16)} `
-                }
-            }
-            _log(`DataView {\n  byteLength: ${data.byteLength},\n  byteOffset: ${data.byteOffset},\n  buffer: ArrayBuffer {\n    [Uint8Contents]: <${hex}>,\n    byteLength: ${data.byteLength}\n  }\n}`)
-        }
-        // -- Unknown
-        else {
-            _log('Unknown')
-        }
-
+        _log(stringify(data))
     }
-}
-
-export function test(): void {
-
-  console.log('Hello From AssemblyScript!')
-
-  console.log(String.UTF8.encode('Hello From AssemblyScript!'))
-  
 }

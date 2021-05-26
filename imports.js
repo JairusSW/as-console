@@ -5,7 +5,7 @@ class WakeImport {
         this._exports = null
 
         this.wasmImports = {
-            index: {
+            consoleBindings: {
                    _log: (message) => {
         
                     console.log(this._exports.__getString(message))
@@ -20,10 +20,6 @@ class WakeImport {
 	}
 	set wasmExports(e) {
 		this._exports = e
-        this._exports.__getString = e.__getString
-        this._exports.__newString = e.__newString
-        this._exports.__newArray = e.__newArray
-        this._exports.__getArray = e.__getArray
 	}
 
 	getFn(fnIndex) {
