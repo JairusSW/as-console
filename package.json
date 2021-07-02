@@ -1,19 +1,19 @@
 {
   "name": "as-console",
-  "version": "5.0.3",
+  "version": "6.0.0",
   "description": "Console For AssemblyScript",
   "ascMain": "assembly/index.ts",
   "types": "assembly/index.ts",
   "scripts": {
-    "asbuild:untouched": "asc assembly/index.ts --target debug",
-    "asbuild:optimized": "asc assembly/index.ts --target release",
-    "asbuild": "yarn asbuild:untouched && yarn asbuild:optimized",
-    "test": "node tests"
+    "build:wasi": "asc assembly/tests/testWASI.ts --target wasiTest --explicitStart",
+    "build:bindings": "asc assembly/tests/testBindings.ts --target bindingsTest --explicitStart",
+    "build:all": "yarn build:wasi && yarn build:bindings",
+    "test:wasi": "node --experimental-wasi-unstable-preview1 ./tests/wasi_test.js",
+    "test:bindings": "node ./tests/bindings_test.js"
   },
   "dependencies": {
-    "@assemblyscript/loader": "^0.18.32",
-    "as-string-sink": "^0.2.1",
-    "assemblyscript": "^0.18.32"
+    "@assemblyscript/loader": "^0.19.5",
+    "assemblyscript": "^0.19.5"
   },
   "keywords": [
     "AS",
@@ -24,11 +24,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/assemblyscript-community/console.git"
+    "url": "git+https://github.com/aspkg/console.git"
   },
   "bugs": {
-    "url": "https://github.com/assemblyscript-community/console/issues"
+    "url": "https://github.com/aspkg/console/issues"
   },
-  "homepage": "https://github.com/assemblyscript-community/console#readme",
+  "homepage": "https://github.com/aspkg/console#readme",
   "devDependencies": {}
 }

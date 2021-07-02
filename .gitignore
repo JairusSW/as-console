@@ -1,2 +1,4 @@
 node_modules
 pnpm-lock.yaml
+tests/output
+yarn.lock

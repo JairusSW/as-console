@@ -52,9 +52,6 @@ export function stringify<T>(data: T): string {
     }
     return 'null'
 }
-// @ts-ignore: Decorator
-@external('consoleBindings', '_log')
-declare function _log(data: string): void
 
 /* So Far, supports:
 - Strings
@@ -79,9 +76,9 @@ export namespace console {
     export function assert<T>(value: T, message: string | null): void {
         if (!value) {
             if (isString(message)) {
-                _log(`${indent}Assertion failed: ${changetype<string>(message)}`)
+                process.stdout.write(`${indent}Assertion failed: ${changetype<string>(message).toString()}\n`)
             } else {
-                _log(`${indent}Assertion failed`)
+                process.stdout.write(`${indent}Assertion failed\n`)
             }
         }
     }
@@ -89,44 +86,44 @@ export namespace console {
         if (!counts.has(label)) counts.set(label, 1)
         const count = counts.get(label)
         counts.set(label, count + 1)
-        _log(`${indent}${label}: ${count + 1}`)
+        process.stdout.write(`${indent}${label}: ${count + 1}\n`)
     }
     export function countReset(label: string): void {
         counts.set(label, 1)
     }
     export function debug<T>(message: T): void {
-        _log(`${indent}${stringify(message)}`)
+        process.stdout.write(`${indent}${stringify(message)}\n`)
     }
     export function error<T>(message: T): void {
-        _log(`${indent}${stringify(message)}`)
+        process.stdout.write(`${indent}${stringify(message)}\n`)
     }
     export function group(label: string): void {
-        _log(`${indent}${label}`)
+        process.stdout.write(`${indent}${label}\n`)
         indent += '  '
     }
     export function groupCollapsed(label: string): void {
-        _log(`${indent}${label}`)
+        process.stdout.write(`${indent}${label}\n`)
         indent += '  '
     }
     export function groupEnd(): void {
         indent = indent.replace('  ', '')
     }
     export function info<T>(message: T): void {
-        _log(`${indent}${stringify(message)}`)
+        process.stdout.write(`${indent}${stringify(message)}\n`)
     }
     export function log<T>(message: T): void {
-        _log(`${indent}${stringify(message)}`)
+        process.stdout.write(`${indent}${stringify(message)}\n`)
     }
     export function time(label: string): void {
         if (timers.has(label)) {
-            _log(`${indent}Warning: Label '${label}' already exists for console.time()`);
+            process.stdout.write(`${indent}Warning: Label '${label}' already exists for console.time()\n`);
             return
         }
-        timers.set(label, Date.now());
+        timers.set(label, process.hrtime());
     }
     export function timeEnd(label: string): void {
         if (!timers.has(label)) {
-            _log(`${indent}Warning: No such label '${label}' for console.timeEnd()`);
+            process.stdout.write(`${indent}Warning: No such label '${label}' for console.timeEnd()\n`);
             return;
         }
         timeLogImpl(label);
@@ -134,19 +131,24 @@ export namespace console {
     }
     export function timeLog(label: string): void {
         if (!timers.has(label)) {
-            _log(`${indent}Warning: No such label '${label}' for console.timeLog()`);
+            process.stdout.write(`${indent}Warning: No such label '${label}' for console.timeLog()\n`);
             return;
         }
         timeLogImpl(label);
     }
     export function trace<T>(message: T): void {
-        _log(`${indent}Trace: ${stringify(message)}`)
+        process.stdout.write(`${indent}Trace: ${stringify(message)}\n`)
     }
     export function warn<T>(message: T): void {
-        _log(`${indent}${stringify(message)}`)
+        process.stdout.write(`${indent}${stringify(message)}\n`)
     }
 }
 
 function timeLogImpl(label: string): void {
-    _log(`${indent}${label}: ${Date.now() - timers.get(label)}ms`);
+    let start = timers.get(label);
+    let end = process.hrtime();
+    let nanos = end - start;
+    let millis = nanos / 1000000;
+    process.stdout.write(`${indent}${label}: ${millis} ms\n`);
+    
 }
