@@ -14,4 +14,4 @@ const wasmModule = loader.instantiateSync(fs.readFileSync(__dirname + '/output/b
 
 Console.wasmExports = wasmModule.exports
 
-wasmModule.exports._start()
+wasmModule.exports.test()

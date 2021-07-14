@@ -13,3 +13,5 @@ const imports = {
 const wasmModule = loader.instantiateSync(fs.readFileSync(__dirname + '/output/wasi.wasm'), imports)
 
 wasi.start(wasmModule)
+
+wasmModule.exports.test()

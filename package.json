@@ -1,12 +1,12 @@
 {
   "name": "as-console",
-  "version": "6.0.0",
+  "version": "6.0.1",
   "description": "Console For AssemblyScript",
   "ascMain": "assembly/index.ts",
   "types": "assembly/index.ts",
   "scripts": {
-    "build:wasi": "asc assembly/tests/testWASI.ts --target wasiTest --explicitStart",
-    "build:bindings": "asc assembly/tests/testBindings.ts --target bindingsTest --explicitStart",
+    "build:wasi": "asc assembly/tests/testWASI.ts --target wasiTest",
+    "build:bindings": "asc assembly/tests/testBindings.ts --target bindingsTest",
     "build:all": "yarn build:wasi && yarn build:bindings",
     "test:wasi": "node --experimental-wasi-unstable-preview1 ./tests/wasi_test.js",
     "test:bindings": "node ./tests/bindings_test.js"
