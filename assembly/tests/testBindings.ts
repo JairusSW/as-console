@@ -1,8 +1,7 @@
 import { console } from "../index";
 
-console.log('Outside...')
-function test(): void {
-    console.log('Inside...')
-}
+console.log('Outside')
 
-test()
+export function test(): void {
+    console.log('Inside')
+}

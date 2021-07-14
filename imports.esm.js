@@ -1,21 +1,25 @@
 export class ConsoleImport {
-    
-    constructor() {
-        
-        this._exports = null
 
-        this.wasmImports = {
-            consoleBindings: {
-                   _log: (message) => {
-        
-                    console.log(this._exports.__getString(message))
-        
-                }
-            }
-        }
-    }
+	constructor() {
 
-    get wasmExports() {
+		this._exports = null
+
+		this.wasmImports = {
+			consoleBindings: {
+				_log: (message) => {
+					if (!this._exports) {
+						process.nextTick(() => {
+							this.wasmImports.consoleBindings._log(message)
+						})
+						return
+					}
+					console.log(this._exports.__getString(message))
+				}
+			}
+		}
+	}
+
+	get wasmExports() {
 		return this._exports
 	}
 	set wasmExports(e) {

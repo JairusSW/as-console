@@ -4,6 +4,12 @@ class ConsoleImport {
 		this.wasmImports = {
 			consoleBindings: {
 				_log: (message) => {
+					if (!this._exports) {
+						process.nextTick(() => {
+							this.wasmImports.consoleBindings._log(message)
+						})
+						return
+					}
 					console.log(this._exports.__getString(message))
 				}
 			}

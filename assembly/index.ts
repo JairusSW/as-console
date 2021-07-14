@@ -1,3 +1,7 @@
+// @ts-ignore: Decorator
+@external('consoleBindings', '_log')
+declare function _log(data: string): void
+
 export function stringify<T>(data: T): string {
 
     // String
@@ -52,9 +56,6 @@ export function stringify<T>(data: T): string {
     }
     return 'null'
 }
-// @ts-ignore: Decorator
-@external('consoleBindings', '_log')
-declare function _log(data: string): void
 
 /* So Far, supports:
 - Strings

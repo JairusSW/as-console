@@ -6,12 +6,17 @@ const ConsoleImports = require('../imports')
 
 const Console = new ConsoleImports()
 
+let wasmModule
+
 const imports = {
     ...Console.wasmImports
 }
 
-const wasmModule = loader.instantiateSync(fs.readFileSync(__dirname + '/output/bindings.wasm'), imports)
+console.log(imports)
+
+wasmModule = loader.instantiateSync(fs.readFileSync(__dirname + '/output/bindings.wasm'), imports)
 
 Console.wasmExports = wasmModule.exports
 
+wasmModule.exports._start()
 wasmModule.exports.test()
