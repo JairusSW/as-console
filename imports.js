@@ -5,7 +5,7 @@ class ConsoleImport {
 			consoleBindings: {
 				_log: (message) => {
 					if (!this._exports) {
-						process.nextTick(() => {
+						Promise.resolve().then(() => {
 							this.wasmImports.consoleBindings._log(message)
 						})
 						return

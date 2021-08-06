@@ -1,6 +1,6 @@
 {
   "name": "as-console",
-  "version": "6.0.1",
+  "version": "6.0.2",
   "description": "Console For AssemblyScript",
   "ascMain": "assembly/index.ts",
   "types": "assembly/index.ts",
@@ -11,10 +11,7 @@
     "test:wasi": "node --experimental-wasi-unstable-preview1 ./tests/wasi_test.js",
     "test:bindings": "node ./tests/bindings_test.js"
   },
-  "dependencies": {
-    "@assemblyscript/loader": "^0.19.5",
-    "assemblyscript": "^0.19.5"
-  },
+  "dependencies": {},
   "keywords": [
     "AS",
     "AssemblyScript",
@@ -30,5 +27,8 @@
     "url": "https://github.com/aspkg/console/issues"
   },
   "homepage": "https://github.com/aspkg/console#readme",
-  "devDependencies": {}
+  "devDependencies": {
+    "@assemblyscript/loader": "^0.19.10",
+    "assemblyscript": "^0.19.10"
+  }
 }
