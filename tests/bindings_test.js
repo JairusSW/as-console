@@ -12,8 +12,6 @@ const imports = {
     ...Console.wasmImports
 }
 
-console.log(imports)
-
 wasmModule = loader.instantiateSync(fs.readFileSync(__dirname + '/output/bindings.wasm'), imports)
 
 Console.wasmExports = wasmModule.exports

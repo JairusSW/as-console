@@ -1,6 +1,6 @@
 {
   "name": "as-console",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "description": "Console For AssemblyScript",
   "ascMain": "assembly/index.ts",
   "types": "assembly/index.ts",
