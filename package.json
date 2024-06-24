@@ -1,34 +1,43 @@
 {
   "name": "as-console",
-  "version": "6.0.3",
-  "description": "Console For AssemblyScript",
-  "ascMain": "assembly/index.ts",
+  "version": "1.0.1",
+  "description": "",
   "types": "assembly/index.ts",
-  "scripts": {
-    "build:wasi": "asc assembly/tests/testWASI.ts --target wasiTest --explicitStart",
-    "build:bindings": "asc assembly/tests/testBindings.ts --target bindingsTest --explicitStart",
-    "build:all": "yarn build:wasi && yarn build:bindings",
-    "test:wasi": "node --experimental-wasi-unstable-preview1 ./tests/wasi_test.js",
-    "test:bindings": "node ./tests/bindings_test.js"
-  },
-  "dependencies": {},
-  "keywords": [
-    "AS",
-    "AssemblyScript",
-    "Console"
-  ],
-  "author": "JairusSW",
+  "author": "Jairus Tanaka",
+  "contributors": [],
   "license": "MIT",
+  "scripts": {
+    "test": "wasmtime ./build/test.wasm",
+    "pretest": "asc assembly/test.ts -o build/test.wasm --config ./node_modules/@assemblyscript/wasi-shim/asconfig.json --transform json-as/transform",
+    "prettier": "as-prettier -w ."
+  },
+  "devDependencies": {
+    "@assemblyscript/wasi-shim": "^0.1.0",
+    "assemblyscript": "^0.27.22",
+    "assemblyscript-prettier": "^3.0.1",
+    "visitor-as": "^0.11.4"
+  },
+  "dependencies": { "as-rainbow": "^0.1.0", "table-as": "^1.0.1" },
+  "overrides": {
+    "assemblyscript": "$assemblyscript"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aspkg/console.git"
+    "url": "git+https://github.com/JairusSW/as-console.git"
   },
+  "keywords": [
+    "assemblyscript",
+    "console",
+    "log",
+    "formatting",
+    "table"
+  ],
   "bugs": {
-    "url": "https://github.com/aspkg/console/issues"
+    "url": "https://github.com/JairusSW/as-console/issues"
   },
-  "homepage": "https://github.com/aspkg/console#readme",
-  "devDependencies": {
-    "@assemblyscript/loader": "^0.19.10",
-    "assemblyscript": "^0.19.10"
+  "homepage": "https://github.com/JairusSW/as-console#readme",
+  "type": "module",
+  "publishConfig": {
+    "@JairusSW:registry": "https://npm.pkg.github.com"
   }
 }

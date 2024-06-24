@@ -1,76 +1,74 @@
-# AS-Console
+<h5 align="center">
+<pre>
+ _____  _____       _____  _____  _____  _____  _____  __     _____ 
+|  _  ||   __| ___ |     ||     ||   | ||   __||     ||  |   |   __|
+|     ||__   ||___||   --||  |  || | | ||__   ||  |  ||  |__ |   __|
+|__|__||_____|     |_____||_____||_|___||_____||_____||_____||_____|
+v1.0.1
+</pre>
+</h5>
 
-**Console for AssemblyScript**
+## Inspiration
+AssemblyScript's implementation of `console.log` only accepts a `string`.
+As a result, you can only log `string`.
+```js
+// 😢
+const foo = 3.14;
+console.log(foo);
+
+> ERROR: f64 not assignable to string. Must call .toString()!
+```
+
+This library fixes that
+```js
+// 😊
+const foo = 3.14;
+console.log(foo);
+// 3.14
+```
+Not only can you log primitive types, but it also supports
+
+- String
+- Integers
+- Floats
+- Booleans
+- Null
+- Map
+- Set
+- Array
 
 ## Installation
 
 ```bash
-~ npm install as-console
+npm install as-console
 ```
 
-## Features
-
-- WASI Implementation
-- JS Bindings
-- NodeJS support
-- Browser support
-- Lunatic support
-- Wasmtime support
-
-## Requirements
-
-*WASI*
-
-- WASI-enabled runtime
-
-*Bindings*
-
-- AssemblyScript Loader/ASbind
-- `--exportRuntime` flag
-
-## Usage (WASI)
+## Usage
 
 ```js
-import { console } from 'as-console/wasi'
+import * as console from "as-console";
 
-console.log('Hello From AssemblyScript!')
-// -- Strings
-console.log(1234567890)
-// -- Numbers
-console.log(new Uint8Array(5))
-// -- UintArray
-console.log(new Map<string, string>().set('Hello', 'World'))
-// -- Map
+console.log("Hello from AssemblyScript!");
+console.log([
+    "It supports other types"
+]);
+console.log([["Other","than","strings"]]);
+
+const set = new Set<string[]>();
+set.add(["and complex types"]);
+console.log(set);
 ```
 
-## Usage (Bindings)
+## Contact
 
-**JS/Node**
+Contact me at:
 
-```js
-...
-const loader = require('@assemblyscript/loader')
-+ const ConsoleImport = require('as-console/imports')
-+ const Console = new ConsoleImport()
-const imports = {
-+     ...Console.wasmImports
-}
-const wasmModule = loader.instantiateSync(..., imports);
-+ Console.wasmExports = wasmModule.exports
-...
-```
+Email: `me@jairus.dev`
 
-**AssemblyScript**
+GitHub: `JairusSW`
 
-```js
-import { console } from 'as-console'
+Discord: `jairussw`
 
-console.log('Hello From AssemblyScript!')
-// -- Strings
-console.log(1234567890)
-// -- Numbers
-console.log(new Uint8Array(5))
-// -- UintArray
-console.log(new Map<string, string>().set('Hello', 'World'))
-// -- Map
-```
+## Issues
+
+Please submit an issue to https://github.com/JairusSW/as-console/issues if you find anything wrong with this library

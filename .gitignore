@@ -1,4 +1,14 @@
 node_modules
+*.lock
+build
 pnpm-lock.yaml
-tests/output
-yarn.lock
+package-lock.json
+.vscode
+logs
+as-tral
+*.lockb
+*.log
+*.wasm
+*.wat
+*.lockb
+.vscode/
