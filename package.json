@@ -1,7 +1,7 @@
 {
   "name": "as-console",
-  "version": "1.0.1",
-  "description": "",
+  "version": "1.0.2",
+  "description": "JavaScript style console for AssemblyScript. Pretty printing, structuring, and more.",
   "types": "assembly/index.ts",
   "author": "Jairus Tanaka",
   "contributors": [],
